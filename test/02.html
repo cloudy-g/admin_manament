@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 测试，使用微任务能否 清除带有id的定时器的回调函数
+    let id1 = setTimeout(() => {
+      console.log('1');
+    }, 1000)
+    Promise.resolve().then(() => {
+      console.log(2);
+      clearTimeout(id1);
+    })
+    console.log(3);
+    // 结果为 3，2 代表可以清除这个带有 id 的定时器
+  </script>
+</body>
+
+</html>
