@@ -39,6 +39,7 @@ git push -u origin master // 将master推送到 origin远程仓库
 ```js
 npm i react-app-rewired customize-cra -D
 // 添加文件 config-overrides.js
+// 修改 package.json文件
 ```
 
 #### 5. Login页面 
@@ -59,3 +60,24 @@ npm i react-app-rewired customize-cra -D
   - 设置1s后进行路由跳转，使用`replace`方法，并在`useEffect`中进行定时器清除工作
   - 用户信息使用`localStorage`进行存储
   - 表单使用`antd`的样式
+- 逻辑注意点（根据b站账号登录页自动填充功能）
+  - 登录页面的账户信息存储在`localStorage`里面，若是在当前已经登录的登录页刷新，则自动填充账号信息
+- 登录页大致完成
+
+#### 6. Admin 页面
+
+- 登录页跳转到路由'/'，转到'/admin'路由页，自动重定向到'/home'界面，保持Tab框选中
+
+- 使用编程式导航的方式，点击侧边栏实现路由跳转，加载对应的组件
+- 整体布局搭建完成，主要包括侧边栏，顶部通栏，对应Tab栏的标题和日期显示
+
+- 库
+  - `antd`的布局组件，加载中组件以及若干图标
+  - 格式化日期 https://github.com/date-fns/date-fns
+
+- 几个注意点
+  - 当使用url直接访问某个路径，会判断当前用户是否已经登录，若登陆则允许进行不登录则会自动返回到登录页面
+  - 在当前页刷新的时候，保持用户数据不会丢失，以及当前页面的信息不会因为刷新而有所改变，可以使用路由作为标志
+- 对当前组件进行拆分
+  - 侧边栏`leftSider`
+  - 主要内容区`contentMain`

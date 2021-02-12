@@ -1,0 +1,75 @@
+#admin-wrapper {
+  height: 100%;
+}
+
+/* 侧边导航栏 */
+.sider {
+  background-color: rgb(0, 21, 41);
+}
+
+#admin-wrapper .sider .list-item {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#admin-wrapper .logo {
+  height: 100px;
+  display: flex;
+}
+
+#admin-wrapper .logo .logo-img {
+  width: 75px;
+  color: #fff;
+}
+
+#admin-wrapper .logo .logo-title {
+  color: #fff;
+  line-height: 100px;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+/* 内容部分 */
+.content-header {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  flex-direction: row-reverse;
+  background-color: #fff;
+  border-bottom: 3px solid rgba(47, 119, 57, 0.7);
+}
+
+.content-desc {
+  height: 50px;
+  line-height: 50px;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(205, 205, 206, 0.459);
+}
+
+.content-desc-title {
+  position: relative;
+  font-size: 25px;
+  left: 150px;
+}
+
+.content-desc::before {
+  content: '';
+  position: absolute;
+  top: 99px;
+  left: 360px;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border: 15px solid rgb(240, 242, 245);
+  border-top: 15px solid #fff;
+}
+
+.content-desc-right {
+  float: right;
+  margin-right: 20px;
+}
+
+#admin-wrapper .content-main {
+  background-color: #fff;
+  z-index: 99;
+}
