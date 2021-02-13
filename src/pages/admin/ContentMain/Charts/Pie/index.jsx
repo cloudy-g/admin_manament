@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function Category() {
+export default function Pie(props) {
+
   return (
     <div>
-      <h1>分类</h1>
+      <h1>Pie ...</h1>
     </div>
   )
 }

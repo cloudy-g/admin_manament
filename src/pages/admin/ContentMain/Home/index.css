@@ -1,0 +1,7 @@
+.home {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  height: 360px;
+  line-height: 360px;
+}

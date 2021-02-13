@@ -1,10 +1,9 @@
 import React from 'react'
 
-export default function Chart(props) {
-
+export default function Product() {
   return (
     <div>
-      <h1>Chart ...</h1>
+      <h1>商品</h1>
     </div>
   )
 }
