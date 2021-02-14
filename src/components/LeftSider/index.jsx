@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { AreaChartOutlined, UserOutlined, AppstoreOutlined, HomeOutlined, ContactsOutlined } from '@ant-design/icons';
 
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
-import { formatUrl } from '../../utils'
+import { formatUrl } from '../../utils';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -53,7 +53,7 @@ const reqmenuList = [
       }
     ]
   }
-]
+];
 
 export default function LeftSider({ pathname }) {
   const [menulist, setMenulist] = useState([]);
@@ -85,7 +85,7 @@ export default function LeftSider({ pathname }) {
       }).map(v => v.key)
       setOpenKeys(tem);
     })
-  }, [])
+  }, []);
 
   return (
     <>

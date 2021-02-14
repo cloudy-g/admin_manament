@@ -1,7 +1,7 @@
-import React, { useEffect, useReducer } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect, useReducer } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import './index.css'
+import './index.css';
 // 添加一个 svg 作为组件
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 
@@ -9,10 +9,10 @@ import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {
   message
-} from 'antd'
-import { fetchUser } from '../../api/login'
-import { loginReducer } from '../../utils/index'
-import localStore from '../../utils/localStorageUtils'
+} from 'antd';
+import { fetchUser } from '../../api/login';
+import { loginReducer } from '../../utils/index';
+import localStore from '../../utils/localStorageUtils';
 
 // 登录表单功能
 export default function Login() {
@@ -52,14 +52,14 @@ export default function Login() {
       // 路由跳转  1秒后跳转到 主页
       timer = setTimeout(() => {
         history.replace('/admin');
-      }, 1000)
+      }, 1000);
     }
   };
 
   // 定时器清除
   useEffect(() => {
-    timer && clearTimeout(timer)
-  })
+    timer && clearTimeout(timer);
+  });
 
   return (
     <div className="login">

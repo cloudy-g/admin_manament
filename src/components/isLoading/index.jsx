@@ -1,5 +1,5 @@
 // isLoading 的加载框
-import React from 'react'
+import React from 'react';
 import { Spin, Alert } from 'antd';
 
 export default function Loading() {

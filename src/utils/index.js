@@ -11,7 +11,7 @@ export function loginReducer(state, action) {
     case 'failed':
       return [false, false];
     default:
-      throw new Error('无效 行为')
+      throw new Error('无效 行为');
   }
 }
 

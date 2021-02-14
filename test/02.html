@@ -13,7 +13,7 @@
     // 测试，使用微任务能否 清除带有id的定时器的回调函数
     let id1 = setTimeout(() => {
       console.log('1');
-    }, 1000)
+    }, 1000);
     Promise.resolve().then(() => {
       console.log(2);
       clearTimeout(id1);

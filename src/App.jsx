@@ -1,11 +1,11 @@
 
-import { lazy, Suspense, useEffect } from 'react'
-import { Route, Switch, useHistory} from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react';
+import { Route, Switch, useHistory} from 'react-router-dom';
 
-import './App.css'
-import localStore from './utils/localStorageUtils'
+import './App.css';
+import localStore from './utils/localStorageUtils';
 
-import Loading from './components/isLoading'
+import Loading from './components/isLoading';
 const Login = lazy(() => import('./pages/login'));
 const Admin = lazy(() => import('./pages/admin'));
 
@@ -17,7 +17,7 @@ export default function App() {
     if (account == null) {
       history.replace('/login')
     }
-  }, [])
+  }, []);
 
   return (
     <>

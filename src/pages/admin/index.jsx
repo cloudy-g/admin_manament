@@ -1,16 +1,16 @@
-import React from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
-import { Layout } from 'antd'
+import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { Layout } from 'antd';
 
-import './index.css'
-import LeftSider from '../../components/LeftSider'
-import ContentMain from './ContentMain'
+import './index.css';
+import LeftSider from '../../components/LeftSider';
+import ContentMain from './ContentMain';
 
-import localStore from '../../utils/localStorageUtils'
+import localStore from '../../utils/localStorageUtils';
 
 export default function Admin() {
   // 获取账号信息
-  const history = useHistory()
+  const history = useHistory();
   let account = localStore.getUser();
   if (account == null) {
     history.replace('/login')

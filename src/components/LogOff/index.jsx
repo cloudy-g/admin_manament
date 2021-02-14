@@ -1,10 +1,10 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Modal, Button, Space } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-
-import './index.css'
-import localStore from '../../utils/localStorageUtils'
+import LinkButton from '../LinkButton'
+import './index.css';
+import localStore from '../../utils/localStorageUtils';
 
 function confirm(replace) {
   Modal.confirm({
@@ -24,7 +24,8 @@ export default function LogOff() {
   const { replace } = useHistory();
   return (
     <Space>
-      <Button id="log-off" onClick={() => confirm(replace)}>退出</Button>
+      <LinkButton onClick={() => confirm(replace)}>退出</LinkButton>
+      {/* <Button id="log-off" onClick={() => confirm(replace)}>退出</Button> */}
     </Space>
   )
 }

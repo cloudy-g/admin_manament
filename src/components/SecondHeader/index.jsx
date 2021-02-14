@@ -18,14 +18,14 @@ export default function SecondHeader({ pathname }) {
   // 日期处理
   const [date, setDate] = useState();
   useEffect(() => {
-    setDate(format(new Date(), 'yyyy-MM-dd HH:mm:ss'))
+    setDate(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
     // let timer = setTimeout(() => {
     //   setDate(format(new Date(), 'yyyy-MM-dd HH:mm:ss'))
     // }, 1000)
     // return () => {
     //   timer && clearTimeout(timer);
     // }
-  })
+  });
   // 根据当前路由显示 title
   let title = titleMap[pathname];
   return (
