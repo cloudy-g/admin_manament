@@ -1,0 +1,26 @@
+.detail-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.detail-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-desc {
+  font-size: 20px;
+  font-weight: 800;
+  margin-right: 30px;
+}
+
+.detail-desc-content {
+  font-size: 16px;
+}
+
+.detail-desc-img {
+  margin: 0 10vw;
+  min-width: 20vh;
+  max-width: 25vh;
+}

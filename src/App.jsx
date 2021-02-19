@@ -1,9 +1,10 @@
 
 import { lazy, Suspense, useEffect } from 'react';
-import { Route, Switch, useHistory} from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 
 import './App.css';
 import localStore from './utils/localStorageUtils';
+import { hasPrivilege } from '@/utils';
 
 import Loading from './components/isLoading';
 const Login = lazy(() => import('./pages/login'));
@@ -24,7 +25,7 @@ export default function App() {
       <Suspense fallback={<Loading></Loading>}>
         <Switch>
           <Route path="/login" exact render={() => <Login ></Login>}></Route>
-          <Route path="/" render={() => <Admin ></Admin>}></Route>
+          <Route path="/" render={() => <Admin></Admin>}></Route>
         </Switch>
       </Suspense>
     </>

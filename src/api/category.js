@@ -7,7 +7,7 @@ import {
   message
 } from 'antd';
 
-// 登录页面 用户信息获取
+// 获取分类数据
 export function fetchCategory() {
   // 封装错误统一处理
   return new Promise((resolve, reject) => {
@@ -15,7 +15,22 @@ export function fetchCategory() {
       method: 'get',
       url: '/category',
     }).then((res) => {
-      resolve(res);
+      resolve(res.data);
+    }).catch((err) => {
+      message.error(err);
+    })
+  })
+}
+
+// 向后台提交 更新数据
+export function updateCategory(sumData) {
+  return new Promise((resolve, reject) => {
+    request({
+      method: 'post',
+      url: '/category',
+      data: sumData
+    }).then((res) => {
+      message.success(`${res.data}`);
     }).catch((err) => {
       message.error(err);
     })

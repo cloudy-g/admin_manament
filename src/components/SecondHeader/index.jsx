@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { RocketTwoTone } from '@ant-design/icons';
 
-import { format } from 'date-fns'
+import { formatDate } from '@/utils'
 
 const titleMap = {
   'home': '首页',
@@ -18,9 +18,9 @@ export default function SecondHeader({ pathname }) {
   // 日期处理
   const [date, setDate] = useState();
   useEffect(() => {
-    setDate(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
+    setDate(formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss'));
     // let timer = setTimeout(() => {
-    //   setDate(format(new Date(), 'yyyy-MM-dd HH:mm:ss'))
+    //   setDate(formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss'))
     // }, 1000)
     // return () => {
     //   timer && clearTimeout(timer);

@@ -1,0 +1,32 @@
+.showStatus {
+  display: flex;
+  flex-direction: column;
+}
+
+.operation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.serch_product {
+  display: flex;
+  width: 80%;
+  justify-content: flex-start;
+}
+
+.search_input {
+  width: 30%;
+  margin: 0 20px;
+}
+
+.active-status {
+  background-color: rgb(245, 0, 41);
+  border: none;
+  color: #fff;
+}
+
+.active-status:hover {
+  background-color: rgb(245, 0, 41);
+  border: none;
+  color: #fff;
+}

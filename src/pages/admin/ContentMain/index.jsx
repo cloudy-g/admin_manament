@@ -11,16 +11,17 @@ import Charts from './Charts'
 import ContentHeader from '../../../components/ContentHeader'
 import SecondHeader from '../../../components/SecondHeader'
 import LogOff from '../../../components/LogOff'
+import './index.css';
 
 const { Header, Content, Footer } = Layout;
 
 export default function ContentMain({ account, pathname }) {
   return (
     <>
-      <Layout>
+      <Layout className="content">
         <Header className="site-layout-sub-header-background content-header" style={{ padding: 0 }} >
           <LogOff></LogOff>
-          <span>欢迎, {account.username}</span>
+          <span>欢迎, {account.username || account.name}</span>
         </Header>
         <ContentHeader >
           <SecondHeader pathname={pathname}></SecondHeader>
