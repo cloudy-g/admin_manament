@@ -7,6 +7,5 @@ export default function SimpleButton(props) {
       type="primary"
       {...props}
     ></Button>
-
   )
 }

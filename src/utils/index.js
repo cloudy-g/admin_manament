@@ -2,7 +2,7 @@ import {
   format
 } from 'date-fns'
 
-// 自定义登录页面 hook
+// 登录页面 reducer
 export function loginReducer(state, action) {
   const {
     type
@@ -91,4 +91,28 @@ export const hasPrivilege = (url, menus) => {
     }
   }
   return true;
+}
+
+// 比较两个数据得到 title
+export function getTitle(list, arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < list.length; j++) {
+      if (list[j] && list[j].key === arr[i]) {
+        if (list[j].children) {
+          arr.shift();
+          return getTitle(list[j].children, arr);
+        } else {
+          return list[j].title;
+        }
+      }
+    }
+  }
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < list.length; j++) {
+      if (list[j] && list[j].children) {
+        return getTitle(list[j].children, arr);
+      }
+    }
+  }
+  return null;
 }

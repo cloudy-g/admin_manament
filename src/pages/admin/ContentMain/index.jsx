@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect, } from 'react-router-dom'
 import { Layout } from 'antd';
+import { connect } from 'react-redux'
 
 import Home from './Home'
 import Category from './Category'
@@ -11,31 +12,33 @@ import Charts from './Charts'
 import ContentHeader from '../../../components/ContentHeader'
 import SecondHeader from '../../../components/SecondHeader'
 import LogOff from '../../../components/LogOff'
+import NotFound from '../../../components/NotFound'
 import './index.css';
 
 const { Header, Content, Footer } = Layout;
 
-export default function ContentMain({ account, pathname }) {
+function ContentMain({ user }) {
   return (
-    <>
+    <>X
       <Layout className="content">
         <Header className="site-layout-sub-header-background content-header" style={{ padding: 0 }} >
           <LogOff></LogOff>
-          <span>欢迎, {account.username || account.name}</span>
+          <span>欢迎, {user.username || user.name}</span>
         </Header>
         <ContentHeader >
-          <SecondHeader pathname={pathname}></SecondHeader>
+          <SecondHeader></SecondHeader>
         </ContentHeader>
         <Content className="content-main" style={{ margin: '15px 16px 0' }}>
           <div className="site-layout-background" style={{ padding: 10, minHeight: 360 }}>
             <Switch>
+              <Redirect exact from="/" to="/home"></Redirect>
               <Route path="/home" component={Home}></Route>
               <Route path="/category" component={Category}></Route>
               <Route path="/product" component={Product}></Route>
               <Route path="/user" component={User}></Route>
               <Route path="/charactor" component={Charactor}></Route>
               <Route path="/charts" component={Charts}></Route>
-              <Redirect to="/home"></Redirect>
+              <Route component={NotFound}></Route>
             </Switch>
           </div>
         </Content>
@@ -44,3 +47,6 @@ export default function ContentMain({ account, pathname }) {
     </>
   )
 }
+export default connect(
+  state => ({ user: state.userReducer })
+)(ContentMain)

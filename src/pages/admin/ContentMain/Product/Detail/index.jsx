@@ -52,7 +52,7 @@ export default function Detail({ data }) {
           <img className="detail-desc-img" src={`/api1${src}`} alt="商品图片" title={title} />
         </p>
       </div>
-    </Card >
+    </Card>
 
   )
 }

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { RocketTwoTone } from '@ant-design/icons';
-
-import { formatDate } from '@/utils'
-
+import { formatDate } from '@/utils';
+import { connect } from 'react-redux';
 const titleMap = {
   'home': '首页',
   'category': '分类管理',
@@ -14,20 +13,20 @@ const titleMap = {
   'pie': '条状图',
 }
 
-export default function SecondHeader({ pathname }) {
+function SecondHeader({ title }) {
   // 日期处理
   const [date, setDate] = useState();
   useEffect(() => {
-    setDate(formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss'));
-    // let timer = setTimeout(() => {
-    //   setDate(formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss'))
-    // }, 1000)
-    // return () => {
-    //   timer && clearTimeout(timer);
-    // }
+    // setDate(formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss'));
+    let timer = setTimeout(() => {
+      setDate(formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss'))
+    }, 1000)
+    return () => {
+      timer && clearTimeout(timer);
+    }
   });
   // 根据当前路由显示 title
-  let title = titleMap[pathname];
+  // let title = titleMap[pathname];
   return (
     <>
       <div className="content-desc">
@@ -41,3 +40,6 @@ export default function SecondHeader({ pathname }) {
     </>
   )
 }
+export default connect(
+  state => ({ title: state.setHead }),
+)(SecondHeader)
