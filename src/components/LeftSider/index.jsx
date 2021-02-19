@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-
+import setHead from '@/redux/action/setHead';
+import { connect } from 'react-redux';
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
-import { formatUrl, extractMenus, listMapToMenus } from '@/utils';
+import { formatUrl, extractMenus, listMapToMenus, getTitle } from '@/utils';
 import localStore from '@/utils/localStorageUtils';
 import { reqmenuList, currentMenuList } from '@/config'
 import { getTargetCharactor } from '@/api/charactor'
@@ -11,19 +12,27 @@ import './index.css';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-export default function LeftSider({ pathname, setMenuList }) {
+function LeftSider({ setMenuList, setHead }) {
   const [menulist, setMenulist] = useState([]);
   const history = useHistory();
   // 刷新的时候根据路由选择当前的选中 Tab
+  let { pathname } = useLocation();
+  let path = pathname.split('/');
+  pathname = path[1];
+  if (pathname === 'charts') {
+    pathname = path[path.length - 1];
+  }
+  pathname = (pathname == '') || (pathname == 'admin') ? 'home' : pathname;
   let selected = [pathname];
-
   // 路由处理 ,点击进行路由跳转
   function toRoute(e) {
     let path = e.keyPath;
     if (path[path.length - 1] === 'goods') {
       path.pop();
     }
-    let url = path.reverse().join('/');
+    path.reverse();
+    setHead(getTitle(menulist, [...path]));
+    let url = path.join('/');
     // 格式化路由
     history.push(formatUrl(`/${url}`))
   }
@@ -43,6 +52,9 @@ export default function LeftSider({ pathname, setMenuList }) {
     }
   }, []);
 
+  useEffect(() => {
+    setHead(getTitle(menulist, [...path]));
+  })
   return (
     <>
       <Sider
@@ -68,7 +80,7 @@ export default function LeftSider({ pathname, setMenuList }) {
                       })
                     }
                   </SubMenu>)
-              } else if(v){
+              } else if (v) {
                 return (
                   <Menu.Item className="list-item" key={v.key} icon={<v.Icon />}>
                     {v.title}
@@ -82,3 +94,10 @@ export default function LeftSider({ pathname, setMenuList }) {
     </>
   )
 }
+
+export default connect(
+  null,
+  {
+    setHead
+  }
+)(LeftSider);
