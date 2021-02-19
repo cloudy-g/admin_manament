@@ -1,10 +1,44 @@
-import React from 'react'
+import React from 'react';
+import { Card } from 'antd';
+import ReactECharts from 'echarts-for-react';
+import SimpleButton from '@/components/SimpleButton';
 
-export default function Line(props) {
-
+export default function Line() {
+  const getOption = () => {
+    return {
+      title: {
+        text: 'ECharts 直线图'
+      },
+      tooltip: {},
+      legend: {
+        data: ['销量', "库存"]
+      },
+      xAxis: {
+        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+      },
+      yAxis: {},
+      series: [{
+        name: '销量',
+        type: 'line',
+        color: "red",
+        data: [5, 20, 36, 10, 10, 20]
+      },
+      {
+        name: '库存',
+        type: 'line',
+        data: [21, 26, 56, 20, 20, 50]
+      }]
+    };
+  }
   return (
-    <div>
-      <h1>Line ...</h1>
-    </div>
+    <Card extra={
+      <div>
+        <SimpleButton
+          onClick={() => {
+          }}
+        >更新</SimpleButton>
+      </div>} >
+      <ReactECharts option={getOption()} />
+    </Card>
   )
 }

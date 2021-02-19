@@ -5,8 +5,10 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import LinkButton from '../LinkButton'
 import './index.css';
 import localStore from '../../utils/localStorageUtils';
+import { connect } from 'react-redux';
+import { removeUser } from '../../redux/action/user';
 
-function confirm(replace) {
+function confirm({ replace, removeUser }) {
   Modal.confirm({
     title: '确认退出',
     icon: <ExclamationCircleOutlined />,
@@ -15,17 +17,21 @@ function confirm(replace) {
     cancelText: '取消',
     onOk() {
       localStore.remove();
-      replace('/login')
+      removeUser();
+      replace('/login');
     }
   });
 }
 
-export default function LogOff() {
+function LogOff({ removeUser }) {
   const { replace } = useHistory();
   return (
     <Space>
-      <LinkButton onClick={() => confirm(replace)}>退出</LinkButton>
+      <LinkButton onClick={() => confirm({ replace, removeUser })}>退出</LinkButton>
       {/* <Button id="log-off" onClick={() => confirm(replace)}>退出</Button> */}
     </Space>
   )
 }
+export default connect(null, {
+  removeUser
+})(LogOff)

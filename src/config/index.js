@@ -41,10 +41,10 @@ export const reqmenuList = [{
       key: 'line',
     },
     {
-      title: '直状图',
+      title: '柱状图',
       key: 'bar',
     }, {
-      title: '条状图',
+      title: '饼状图',
       key: 'pie'
     }
   ]
