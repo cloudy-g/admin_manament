@@ -23,17 +23,22 @@ export const removeUser = () => ({
 
 export const fetchUserAction = (values, errback, succback) => {
   return async (dispatch) => {
-    let res = await fetchUser(values);
-    if (res.data.status == 0) {
-      dispatch(userFailed({
-        errMsg: res.data.msg
-      }));
-      errback(res.data.msg);
-    } else {
-      // 缓存用户信息
-      localStore.saveUser(res.data);
-      dispatch(showUser(res.data));
-      succback();
+    try {
+      let res = await fetchUser(values);
+      if (res.data.data && res.data.data.status == 0) {
+        dispatch(userFailed({
+          errMsg: res.data.data.msg
+        }));
+        errback(res.data.data.msg);
+      } else {
+        // 缓存用户信息
+        // localStore.saveUser(res.data);
+        // localStorage.setItem('token')
+        dispatch(showUser(res.data));
+        succback();
+      }
+    } catch (e) {
+      errback(e.message)
     }
   }
 }

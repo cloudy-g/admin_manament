@@ -16,7 +16,8 @@ function confirm({ replace, removeUser }) {
     okText: '确认',
     cancelText: '取消',
     onOk() {
-      localStore.remove();
+      // localStore.remove();
+      localStorage.removeItem('token');
       removeUser();
       replace('/login');
     }

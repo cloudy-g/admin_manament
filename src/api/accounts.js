@@ -17,9 +17,6 @@ export function fetchAccounts() {
     }).then(res => {
       resolve(res.data);
     }).catch(err => {
-      if (isCancle(err)) {
-        console.log('请求取消', err);
-      }
       message.error('请求出错');
     })
 

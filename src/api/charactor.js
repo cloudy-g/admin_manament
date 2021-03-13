@@ -58,7 +58,7 @@ export function getTargetCharactor(account) {
       method: "get",
       url: '/charactor',
       params: {
-        type: account.charactor[0]
+        type: account.charactor && account.charactor[0]
       }
     }).then(res => {
       resolve(res.data);
