@@ -5,6 +5,7 @@ import { PlusOutlined, ShopOutlined, DownOutlined, ShoppingOutlined } from '@ant
 import LinkButton from '../../../../../components/LinkButton';
 import SimpleButton from '../../../../../components/SimpleButton';
 import { updateProduct } from '../../../../../api/product'
+import { debounce } from '@/utils'
 import './index.css';
 
 
@@ -13,7 +14,6 @@ export default function ProductHome({ data, dataSource, setSource, memKey, setMe
   const [keyword, setKeyword] = useState('title');
   const [current, setCurrent] = useState(1);
   useEffect(() => {
-    // filterKey();
     if (memKey === '') {
       setSource(data);
     }
@@ -62,19 +62,19 @@ export default function ProductHome({ data, dataSource, setSource, memKey, setMe
                 <span>在售</span>
               </div>
             ) : (
-                <div>
-                  <LinkButton onClick={async () => {
-                    row[1].status = '0';
-                    await updateProduct(row[1]);
-                    // 找到当前row的对应在dataSource中的位置，进行提交后台更改
-                    setSource(source => {
-                      source[row[2]] = row[1];
-                      return [...source]
-                    })
-                  }} className={activeClass}>上架</LinkButton>
-                  <span>已下架</span>
-                </div>
-              )
+              <div>
+                <LinkButton onClick={async () => {
+                  row[1].status = '0';
+                  await updateProduct(row[1]);
+                  // 找到当前row的对应在dataSource中的位置，进行提交后台更改
+                  setSource(source => {
+                    source[row[2]] = row[1];
+                    return [...source]
+                  })
+                }} className={activeClass}>上架</LinkButton>
+                <span>已下架</span>
+              </div>
+            )
           }
         </Tooltip>
       ),
@@ -134,12 +134,9 @@ export default function ProductHome({ data, dataSource, setSource, memKey, setMe
     </Menu>
   );
 
-  const filterKey = () => {
-    if (memKey === '') {
-      return message.error('请输入关键字')
-    }
+  const filterKey = debounce((val) => {
     let tem = data.filter(v => {
-      if (v[keyword].indexOf(memKey) !== -1) {
+      if (v[keyword].indexOf(val) !== -1) {
         return true;
       } else {
         return false;
@@ -147,10 +144,24 @@ export default function ProductHome({ data, dataSource, setSource, memKey, setMe
     })
     setCurrent(1);
     setSource(tem);
-    setMemKey(memKey);
-  }
+  }, 1000)
   const collectText = (e) => {
-    setMemKey(e.target.value)
+    let val = e.target.value;
+    if (e.target.composing) {
+      setMemKey(val)
+      return;
+    }
+    setMemKey(val)
+    filterKey(val);
+  }
+  const inputChinese = {
+    onCompositionUpdate(e) {
+      e.target.composing = true;
+    },
+    onCompositionEnd(e) {
+      e.target.composing = false;
+      filterKey(e.target.value);
+    },
   }
 
   return (
@@ -162,7 +173,7 @@ export default function ProductHome({ data, dataSource, setSource, memKey, setMe
               按{keyword === 'title' ? '商品' : "店铺"}名称搜索
           </Dropdown.Button>
           </Space>
-          <Input className="search_input" placeholder="关键字" value={memKey} onChange={collectText}></Input>
+          <Input {...inputChinese} className="search_input" placeholder="关键字" value={memKey} onChange={collectText}></Input>
           <SimpleButton
             onClick={() => {
               filterKey()

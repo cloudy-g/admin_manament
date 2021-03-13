@@ -6,7 +6,7 @@ import {
 } from '../action_Type'
 import localStore from '@/utils/localStorageUtils'
 
-const inituser = localStore.getUser();
+const inituser = {};
 export default (state = inituser, action) => {
   const {
     type,

@@ -1,38 +1,49 @@
 import axios from 'axios';
-import {
-  useEffect,
-  useContext,
-} from 'react';
-import {
-  useHistory,
-  useLocation
-} from 'react-router-dom';
-import {
-  message
-} from 'antd';
-import {
-  hasPrivilege
-} from '@/utils';
-let CancelToken = axios.CancelToken;
-let self;
+// import {
+//   useEffect,
+//   useContext,
+// } from 'react';
+// import {
+//   useHistory,
+//   useLocation
+// } from 'react-router-dom';
+// import {
+//   message
+// } from 'antd';
+// import {
+//   hasPrivilege
+// } from '@/utils';
+// let CancelToken = axios.CancelToken;
+// let self;
 //http request 拦截器
-// axios.interceptors.request.use(
-//   config => {
-//     config.cancelToken = new CancelToken((c) => {
-//       self.cancle = c;
-//       console.log(self);
-//     });
-//     return config;
-//   },
-//   error => {
-//     return Promise.reject(error);
-//   }
-// ); 
 export function request(config) {
   let instance = axios.create({
     baseURL: 'http://localhost:5000',
     timeout: 4000,
   });
+  instance.interceptors.response.use(
+    res => {
+      if (res.data && res.data.token) {
+        localStorage.setItem('token', res.data.token);
+      }
+      return res
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+  instance.interceptors.request.use(
+    config => {
+      let token = localStorage.getItem('token');
+      if (token) {
+        config.headers['accessToken'] = token;
+      }
+      return config
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
   return instance(config);
 }
 // 自定义路由拦截 hook 

@@ -14,13 +14,14 @@ export function fetchUser(user) {
       method: 'post',
       url: '/login',
       data: {
-        username: user.username,
-        password: user.password,
+        username: user && user.username,
+        password: user && user.password,
       }
     }).then((res) => {
       resolve(res);
     }).catch((err) => {
       message.error(err);
+      // reject(err);
     })
   })
 }

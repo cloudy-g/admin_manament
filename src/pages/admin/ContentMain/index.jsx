@@ -1,5 +1,5 @@
-import React from 'react'
-import { Route, Switch, Redirect, } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Route, Switch, Redirect, useLocation, useHistory, } from 'react-router-dom'
 import { Layout } from 'antd';
 import { connect } from 'react-redux'
 
@@ -17,9 +17,44 @@ import './index.css';
 
 const { Header, Content, Footer } = Layout;
 
-function ContentMain({ user }) {
+function DynamicRouter(props) {
+  const [flag, setFlag] = useState(false);
+  const { pathname } = useLocation();
+  const history = useHistory();
+  const { menuList } = props;
+  useEffect(() => {
+    let path = pathname.split('/')
+    if (menuList) {
+      let keys = ['detail', 'update'];
+      let flag = true;
+      for (let i = 0; i < keys.length; i++) {
+        if (path.includes(keys[i])) {
+          path = 'product';
+          flag = false;
+          break;
+        }
+      }
+      if (flag) {
+        path = path[path.length - 1];
+      }
+      if (!menuList.includes(path)) {
+        history.replace('/home');
+      } else {
+        setFlag(true);
+      }
+    }
+  }, [pathname, menuList])
+
   return (
-    <>X
+    <>
+      { flag && props.children}
+    </>
+  )
+}
+
+function ContentMain({ user, menuList }) {
+  return (
+    <>
       <Layout className="content">
         <Header className="site-layout-sub-header-background content-header" style={{ padding: 0 }} >
           <LogOff></LogOff>
@@ -30,16 +65,18 @@ function ContentMain({ user }) {
         </ContentHeader>
         <Content className="content-main" style={{ margin: '15px 16px 0' }}>
           <div className="site-layout-background" style={{ padding: 10, minHeight: 360 }}>
-            <Switch>
-              <Redirect exact from="/" to="/home"></Redirect>
-              <Route path="/home" component={Home}></Route>
-              <Route path="/category" component={Category}></Route>
-              <Route path="/product" component={Product}></Route>
-              <Route path="/user" component={User}></Route>
-              <Route path="/charactor" component={Charactor}></Route>
-              <Route path="/charts" component={Charts}></Route>
-              <Route component={NotFound}></Route>
-            </Switch>
+            <DynamicRouter user={user} menuList={menuList}>
+              <Switch>
+                <Redirect exact from="/" to="/home"></Redirect>
+                <Route path="/home" component={Home}></Route>
+                <Route path="/category" component={Category}></Route>
+                <Route path="/product" component={Product}></Route>
+                <Route path="/user" component={User}></Route>
+                <Route path="/charactor" component={Charactor}></Route>
+                <Route path="/charts" component={Charts}></Route>
+                <Route component={NotFound}></Route>
+              </Switch>
+            </DynamicRouter>
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>推荐使用Chrome 浏览器提升您的体验</Footer>

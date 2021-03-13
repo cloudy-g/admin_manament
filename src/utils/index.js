@@ -49,11 +49,11 @@ export const dataMapToOptions = (data, options) => {
 // 抽取导航信息
 export const extractMenus = (menus, reqmenuList) => {
   return reqmenuList.map(v => {
-    if (menus.includes(v.key)) {
+    if (menus && menus.includes(v.key)) {
       return v;
     } else if (v.children) {
       let childs = v.children.filter(v => {
-        if (menus.includes(v.key)) {
+        if (menus && menus.includes(v.key)) {
           return true
         } else {
           return false;
@@ -115,4 +115,14 @@ export function getTitle(list, arr) {
     }
   }
   return null;
+}
+
+export function debounce(fn, delay) {
+  let timer = null;
+  return function (...args) {
+    timer && clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay)
+  }
 }

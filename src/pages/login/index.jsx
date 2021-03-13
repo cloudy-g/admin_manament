@@ -42,7 +42,7 @@ function Login({ fetchUser }) {
         message.success('登录成功');
         // 路由跳转  1秒后跳转到 主页
         timer = setTimeout(() => {
-          history.replace('/admin');
+          history.replace('/home');
         }, 1000);
       })
   };

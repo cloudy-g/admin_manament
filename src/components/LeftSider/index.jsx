@@ -12,7 +12,7 @@ import './index.css';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-function LeftSider({ setMenuList, setHead }) {
+function LeftSider({ user, setMenuList, setHead }) {
   const [menulist, setMenulist] = useState([]);
   const history = useHistory();
   // 刷新的时候根据路由选择当前的选中 Tab
@@ -38,7 +38,7 @@ function LeftSider({ setMenuList, setHead }) {
   }
 
   useEffect(async () => {
-    let user = localStore.getUser();
+    // let user = localStore.getUser();
     if (user.name === 'admin') {
       setMenulist(reqmenuList);
       let menus = [];
@@ -48,7 +48,7 @@ function LeftSider({ setMenuList, setHead }) {
       let current = await getTargetCharactor(user);
       currentMenuList.menuList = extractMenus(current.menus, reqmenuList);
       setMenulist(currentMenuList.menuList);
-      setMenuList([...current.menus]);
+      setMenuList([...(current.menus || [])]);
     }
   }, []);
 
@@ -96,7 +96,7 @@ function LeftSider({ setMenuList, setHead }) {
 }
 
 export default connect(
-  null,
+  state => ({ user: state.userReducer }),
   {
     setHead
   }
